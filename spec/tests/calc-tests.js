@@ -1,12 +1,18 @@
 'use-strict'
-// TODO: standard js doesn't like jasmine or large json object :(
+
+const caclutaor = require('../../calculator.js')
 
 describe('calculator tests', () => {
   // loan amount 5k, 4.5 interest, startdate 2016-09-01, term:60mo
   it('returns expected 5 year result', () => {
-    expect('TODO').toEqual({
-      payoffDate: '2021-09-1',
-      amortizationSchedule: [
+    const loan = {
+      loanAmount: '5000',
+      interest: '4.5',
+      startDate: '2016-09-01',
+      termMonths: '60'
+    }
+
+    const amortizationSchedule = [
         { date: '01-10-2016', payment: '93.22', principal: '74.47', interest: '18.75', totalInterest: '18.75', balance: '4925.53' },
         { date: '01-11-2016', payment: '93.22', principal: '74.74', interest: '18.47', totalInterest: '37.22', balance: '4850.79'},
         { date: '01-12-2016', payment: '93.22', principal: '75.02', interest: '18.19', totalInterest: '55.41', balance: '4775.77'},
@@ -67,7 +73,8 @@ describe('calculator tests', () => {
         { date: '01-07-2021', payment: '93.22', principal: '92.17', interest: '1.04', totalInterest: '591.86', balance: '185.39'},
         { date: '01-08-2021', payment: '93.22', principal: '92.52', interest: '0.70', totalInterest: '592.56', balance: '92.87'},
         { date: '01-09-2021', payment: '93.22', principal: '92.87', interest: '0.35', totalInterest: '592.91', balance: '0.00'}
-      ]
-    })
+    ]
+
+    expect(caclutaor.amortizationSchedule(loan)).toEqual(amortizationSchedule)
   })
 })
