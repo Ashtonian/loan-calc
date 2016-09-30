@@ -29,3 +29,14 @@ module.exports = {
     return 'return payoff date'
   }
 }
+
+function addMonths (dateObj, num) {
+  const currentMonth = dateObj.getMonth()
+  dateObj.setMonth(dateObj.getMonth() + num)
+
+  // handle roll over in dates and leap year to account for +1 month rolling over 2 months.
+  if (dateObj.getMonth() !== ((currentMonth + num) % 12)) {
+    dateObj.setDate(0)
+  }
+  return dateObj
+}
