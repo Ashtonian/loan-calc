@@ -7,11 +7,22 @@ module.exports = {
           startDate: '2016-09-01',
           termMonths: '60'
         } */
+
+        /*
         // calculate the number of payments
         // caclulate monthly interest
         // cacl payment schedule
         // implement payments without dates until you canz't
-    return loan
+
+        // exoteric math to calc base M = P * ( J / (1 - (1 + J)-N)).
+
+    }
+    */
+
+    const effectiveInterest = loan.interest / 12
+    let monthly = loan.loanAmount * (effectiveInterest / (1 - (1 + effectiveInterest) - loan.termMonths))
+
+    return monthly
   },
   payment: (loan) => {
     return 'return min payment'
