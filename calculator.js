@@ -20,7 +20,14 @@ module.exports = {
     */
 
     const effectiveInterest = loan.interest / 12
-    let monthly = loan.loanAmount * (effectiveInterest / (1 - (1 + effectiveInterest) - loan.termMonths))
+    const onePlustEffective = (1 + effectiveInterest)
+    const oneMinusOnePlustEffectiveMinusTerms = (1 - onePlustEffective - loan.termMonths)
+    const effectiveOverOther = effectiveInterest / oneMinusOnePlustEffectiveMinusTerms
+    const monthly = loan.LoanAmount * effectiveOverOther
+
+    console.log(`effectiveInterest: ${effectiveInterest}, onePlustEffective:${onePlustEffective},oneMinusOnePlustEffectiveMinusTerms:${oneMinusOnePlustEffectiveMinusTerms}, effectiveOverOther:${effectiveOverOther},monthly:${monthly}`)
+
+    // let monthly = loan.loanAmount * (effectiveInterest / (1 - (1 + effectiveInterest) - loan.termMonths))
 
     return monthly
   },
