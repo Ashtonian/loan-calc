@@ -1,6 +1,6 @@
 
 module.exports = {
-  amortizationSchedule: (loan) => {
+  amortizationSchedule: (loanAmount, interest, payment, numberOfPayments, numberOfPaymentsAnually = 12) => {
     /*     const loan = {
           loanAmount: '5000',
           interest: '4.5',
@@ -8,28 +8,30 @@ module.exports = {
           termMonths: '60'
         } */
 
-        /*
-        // calculate the number of payments
-        // caclulate monthly interest
-        // cacl payment schedule
-        // implement payments without dates until you canz't
+    const schedule = []
+    let remainingBalance = loanAmount
+    let totalInterest = 0
 
-        // exoteric math to calc base M = P * ( J / (1 - (1 + J)-N)).
+    for (let i = 0; i < numberOfPayments; i++) {
+      let interest = remainingBalance * (interest / 100 / numberOfPaymentsAnually)
+      totalInterest += interest
+      let principle = payment - interest
 
+      remainingBalance -= principle
+
+      const appliedPayment = {
+        paymentNumber: i,
+        payment: payment,
+        principal: principle,
+        interest: interest,
+        totalInterest: totalInterest,
+        balance: remainingBalance
+      }
+
+      schedule.push(appliedPayment)
     }
-    */
 
-    const effectiveInterest = loan.interest / 12
-    const onePlustEffective = (1 + effectiveInterest)
-    const oneMinusOnePlustEffectiveMinusTerms = (1 - onePlustEffective - loan.termMonths)
-    const effectiveOverOther = effectiveInterest / oneMinusOnePlustEffectiveMinusTerms
-    const monthly = loan.LoanAmount * effectiveOverOther
-
-    console.log(`effectiveInterest: ${effectiveInterest}, onePlustEffective:${onePlustEffective},oneMinusOnePlustEffectiveMinusTerms:${oneMinusOnePlustEffectiveMinusTerms}, effectiveOverOther:${effectiveOverOther},monthly:${monthly}`)
-
-    // let monthly = loan.loanAmount * (effectiveInterest / (1 - (1 + effectiveInterest) - loan.termMonths))
-
-    return monthly
+    return schedule
   },
   payment: (loan) => {
     return 'return min payment'

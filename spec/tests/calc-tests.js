@@ -75,6 +75,6 @@ describe('calculator tests', () => {
         { date: '01-09-2021', payment: '93.22', principal: '92.87', interest: '0.35', totalInterest: '592.91', balance: '0.00'}
     ]
 
-    expect(caclutaor.amortizationSchedule(loan)).toEqual(amortizationSchedule)
+    expect(caclutaor.amortizationSchedule(loan.loanAmount, loan.interest, '93.22', loan.termMonths, 12)).toEqual(amortizationSchedule)
   })
 })
