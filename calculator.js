@@ -7,30 +7,39 @@ module.exports = {
           startDate: '2016-09-01',
           termMonths: '60'
         } */
+        loanAmount *= 100
+        interest *= 100
+        payment *= 100 
+        
 
     const schedule = []
     let remainingBalance = loanAmount
     let totalInterest = 0
 
     for (let i = 0; i < numberOfPayments; i++) {
-      let interest = remainingBalance * (interest / 100 / numberOfPaymentsAnually)
-      totalInterest += interest
-      let principle = payment - interest
+      let interestAmount = remainingBalance * (interest / 100 / numberOfPaymentsAnually)
+      interestAmount = Math.round(interestAmount)
+      totalInterest += interestAmount
+      totalInterest = Math.round(totalInterest*100)/100
+      let principle = payment - interestAmount
+      principle = Math.round(principle*100)/100
+
 
       remainingBalance -= principle
+      remainingBalance = Math.round(remainingBalance*100)/100
 
       const appliedPayment = {
         paymentNumber: i,
         payment: payment,
         principal: principle,
-        interest: interest,
+        interest: interestAmount,
         totalInterest: totalInterest,
         balance: remainingBalance
       }
 
       schedule.push(appliedPayment)
     }
-
+    console.log(schedule)
     return schedule
   },
   payment: (loan) => {
